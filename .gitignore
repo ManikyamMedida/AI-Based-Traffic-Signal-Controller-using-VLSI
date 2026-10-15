@@ -1,0 +1,7 @@
+work/
+*.wlf
+*.bak
+transcript
+*.mpf
+*.cr.mti
+modelsim.ini

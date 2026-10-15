@@ -1,0 +1,93 @@
+vlog -sv rtl/generic_timer.sv tb/tb_generic_timer.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:22:18 on Oct 07,2026
+# vlog -reportprogress 300 -sv rtl/generic_timer.sv tb/tb_generic_timer.sv 
+# -- Compiling module generic_timer
+# -- Compiling module timer_test_unit
+# -- Compiling module tb_generic_timer
+# 
+# Top level modules:
+# 	tb_generic_timer
+# End time: 19:22:19 on Oct 07,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+vsim -voptargs=+acc work.tb_generic_timer
+# vsim -voptargs="+acc" work.tb_generic_timer 
+# Start time: 19:22:19 on Oct 07,2026
+# Loading sv_std.std
+# Loading work.tb_generic_timer
+# Loading work.timer_test_unit
+# Loading work.generic_timer
+do sim/wave_timer.do
+run -all
+# TIMER TEST 1 PASS: COUNTER_WIDTH=4 target=3
+# TIMER TEST 2 PASS: COUNTER_WIDTH=8 target=5
+# TIMER TEST 3 PASS: COUNTER_WIDTH=16 target=8
+# TIMER TEST 1 PASS: COUNTER_WIDTH=4 target=0 (zero-target)
+# TIMER TEST 2 PASS: COUNTER_WIDTH=8 target=0 (zero-target)
+# TIMER TEST 3 PASS: COUNTER_WIDTH=16 target=0 (zero-target)
+# TIMER TEST 1 PASS: COUNTER_WIDTH=4 target=1
+# TIMER TEST 2 PASS: COUNTER_WIDTH=8 target=1
+# TIMER TEST 3 PASS: COUNTER_WIDTH=16 target=1
+# TIMER TEST 1 PASS: COUNTER_WIDTH=4 reset-while-counting
+# TIMER TEST 2 PASS: COUNTER_WIDTH=8 reset-while-counting
+# TIMER TEST 3 PASS: COUNTER_WIDTH=16 reset-while-counting
+# ========================================
+# GENERIC TIMER TESTBENCH: ALL TESTS PASS
+# ========================================
+# ** Note: $finish    : tb/tb_generic_timer.sv(119)
+#    Time: 651 ns  Iteration: 0  Instance: /tb_generic_timer
+# 1
+# Break in Module tb_generic_timer at tb/tb_generic_timer.sv line 119
+quit -sim
+vlog -sv rtl/generic_timer.sv rtl/junction_controller.sv tb/tb_monitors.sv tb/tb_junction_controller.sv
+# End time: 19:34:42 on Oct 07,2026, Elapsed time: 0:12:23
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 19:34:42 on Oct 07,2026
+# vlog -reportprogress 300 -sv rtl/generic_timer.sv rtl/junction_controller.sv tb/tb_monitors.sv tb/tb_junction_controller.sv 
+# -- Compiling module generic_timer
+# -- Compiling module junction_controller
+# -- Compiling module run_len_checker
+# -- Compiling module junction_monitor
+# -- Compiling module tb_junction_controller
+# 
+# Top level modules:
+# 	tb_junction_controller
+# End time: 19:34:42 on Oct 07,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -voptargs=+acc work.tb_junction_controller
+# vsim -voptargs="+acc" work.tb_junction_controller 
+# Start time: 19:34:42 on Oct 07,2026
+# Loading sv_std.std
+# Loading work.tb_junction_controller
+# Loading work.junction_controller
+# Loading work.generic_timer
+# Loading work.junction_monitor
+# Loading work.run_len_checker
+do sim/wave_junction.do
+run -all
+# PASS: NORMAL FSM SEQUENCE + PARAMETERIZATION (density 0: A green=3, B green=4)
+# PASS: MIN-GREEN FLOOR ENFORCED (B base 2 -> 4)
+#   density=0 : A green=3        B green=4      
+#   density=1 : A green=4        B green=4      
+#   density=2 : A green=5        B green=6      
+#   density=3 : A green=6 (cap)  B green=8      
+#   density=4 : A green=6 (cap)  B green=9 (cap)
+#   density=5 : A green=6 (cap)  B green=9 (cap)
+#   density=6 : A green=6 (cap)  B green=9 (cap)
+#   density=7 : A green=6 (cap)  B green=9 (cap)
+# PASS: DENSITY SWEEP 0..7 (green rises with density, saturates at MAX)
+# PASS: DENSITY CHANGE DURING GREEN IGNORED UNTIL NEXT GREEN
+# PASS: RANDOM DENSITY (400 cycles)
+# PASS: PEDESTRIAN DURING YELLOW RETAINED AND SERVICED ONCE (PED=3 cycles)
+# PASS: EMERGENCY SWEEP (All-Red <= 1 clock after assertion, safe NS restart)
+# PASS: EMERGENCY DURING PEDESTRIAN PHASE
+# PASS: REPEATED EMERGENCY TOGGLE (no delay between operations)
+# PASS: RESET DURING OPERATION
+# ============================================
+# JUNCTION CONTROLLER TESTBENCH: ALL PASS
+# ============================================
+# ** Note: $finish    : tb/tb_junction_controller.sv(321)
+#    Time: 12225 ns  Iteration: 1  Instance: /tb_junction_controller
+# 1
+# Break in Module tb_junction_controller at tb/tb_junction_controller.sv line 321

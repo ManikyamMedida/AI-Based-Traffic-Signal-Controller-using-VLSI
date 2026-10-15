@@ -1,0 +1,126 @@
+vlog -sv rtl/generic_timer.sv rtl/junction_controller.sv rtl/ped_arbiter.sv rtl/amtgc_top.sv tb/tb_monitors.sv tb/tb_generic_timer.sv tb/tb_amtgc_full.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 17:57:58 on Oct 08,2026
+# vlog -reportprogress 300 -sv rtl/generic_timer.sv rtl/junction_controller.sv rtl/ped_arbiter.sv rtl/amtgc_top.sv tb/tb_monitors.sv tb/tb_generic_timer.sv tb/tb_amtgc_full.sv 
+# -- Compiling module generic_timer
+# -- Compiling module junction_controller
+# -- Compiling module ped_arbiter
+# -- Compiling module amtgc_top
+# -- Compiling module run_len_checker
+# -- Compiling module junction_monitor
+# -- Compiling module timer_test_unit
+# -- Compiling module tb_generic_timer
+# -- Compiling module tb_amtgc_full
+# 
+# Top level modules:
+# 	tb_generic_timer
+# 	tb_amtgc_full
+# End time: 17:57:58 on Oct 08,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -voptargs=+acc work.tb_amtgc_full
+# vsim -voptargs="+acc" work.tb_amtgc_full 
+# Start time: 17:57:58 on Oct 08,2026
+# Loading sv_std.std
+# Loading work.tb_amtgc_full
+# Loading work.amtgc_top
+# Loading work.ped_arbiter
+# Loading work.junction_controller
+# Loading work.generic_timer
+# Loading work.junction_monitor
+# Loading work.run_len_checker
+# Loading work.timer_test_unit
+do sim/wave_full.do
+run -all
+# TIMER TEST 1 PASS: COUNTER_WIDTH=4 target=3
+# TIMER TEST 2 PASS: COUNTER_WIDTH=8 target=5
+# TIMER TEST 3 PASS: COUNTER_WIDTH=16 target=8
+# TIMER TEST 1 PASS: COUNTER_WIDTH=4 target=0 (zero-target)
+# TIMER TEST 2 PASS: COUNTER_WIDTH=8 target=0 (zero-target)
+# TIMER TEST 3 PASS: COUNTER_WIDTH=16 target=0 (zero-target)
+# TIMER TEST 1 PASS: COUNTER_WIDTH=4 target=1
+# TIMER TEST 2 PASS: COUNTER_WIDTH=8 target=1
+# TIMER TEST 3 PASS: COUNTER_WIDTH=16 target=1
+# TIMER TEST 1 PASS: COUNTER_WIDTH=4 reset-while-counting
+# TIMER TEST 2 PASS: COUNTER_WIDTH=8 reset-while-counting
+# TIMER TEST 3 PASS: COUNTER_WIDTH=16 reset-while-counting
+# [sim time 965 ns]
+# PASS: T17 GREEN-WAVE 5 measurements, offset min=4 max=4 (target 4, window 3..5)
+# [sim time 1135 ns]
+# PASS: T07/T08 single pedestrian requests serviced
+# [sim time 15125 ns]
+# PASS: T09/T10 FAIRNESS 60 simultaneous rounds (120 requests): A first 30, B first 30
+# [sim time 17335 ns]
+# PASS: T11 pedestrian request during yellow serviced exactly once
+# [sim time 17535 ns]
+# PASS: T12/T15/T16 emergency during A NS green, held, released, re-synchronised
+# [sim time 17705 ns]
+# PASS: T13 emergency during A EW green
+# [sim time 18105 ns]
+# PASS: T14 emergency during pedestrian phase (A and B)
+# [sim time 20125 ns]
+# PASS: EMERGENCY DIRECTED IN EACH PHASE (all-red, NS G/Y, EW G/Y, pedestrian) for A and B
+# [sim time 29605 ns]
+# PASS: emergency sweep across all phases (24 offsets)
+# [sim time 29925 ns]
+# PASS: repeated emergency toggle with no delay
+# [sim time 30445 ns]
+# PASS: reset during operation, system restarts with green wave intact
+#   density=0 : A green=4        B green=3      
+#   density=1 : A green=6        B green=3      
+#   density=2 : A green=8        B green=4      
+#   density=3 : A green=10        B green=5      
+#   density=4 : A green=12 (cap)  B green=6      
+#   density=5 : A green=12 (cap)  B green=7      
+#   density=6 : A green=12 (cap)  B green=8 (cap)
+#   density=7 : A green=12 (cap)  B green=8 (cap)
+# [sim time 32695 ns]
+# PASS: T18/T19/T20 DENSITY SWEEP 0..7 (min respected, rises, saturates at MAX)
+# [sim time 33885 ns]
+# PASS: BOTH JUNCTIONS AT MAX DENSITY (A green=12, B green=8, NS and EW both served)
+# [sim time 34455 ns]
+# PASS: DENSITY CHANGE DURING GREEN IGNORED UNTIL NEXT GREEN
+# [sim time 41505 ns]
+# PASS: GREEN-WAVE under 8 density combinations (offset min=4 max=4)
+# [sim time 242175 ns]
+# PASS: CONSTRAINED-RANDOM (20000 cycles: density, pedestrian, emergency, reset)
+# 
+# ================= COVERAGE vs TASK 1 PLAN =================
+#   T01   Reset at startup (All-Red during reset, NS restart)                  COVERED
+#   T02   Normal NS sequence NS G -> Y -> All-Red                              COVERED
+#   T03   Normal EW sequence All-Red -> EW G -> Y -> All-Red                   COVERED
+#   T04   All-Red safety gap (no conflicting greens back-to-back)              COVERED
+#   T05   Timer target = 0                                                     COVERED
+#   T06   Timer reset while counting                                           COVERED
+#   T07   Pedestrian A request serviced                                        COVERED
+#   T08   Pedestrian B request serviced                                        COVERED
+#   T09   Simultaneous pedestrian requests (round-robin)                       COVERED
+#   T10   Repeated simultaneous requests, alternate, no starvation             COVERED
+#   T11   Pedestrian request during yellow retained, serviced once             COVERED
+#   T12   Emergency during NS green                                            COVERED
+#   T13   Emergency during EW green                                            COVERED
+#   T14   Emergency during pedestrian phase                                    COVERED
+#   T15   Emergency held active, both stay All-Red                             COVERED
+#   T16   Emergency release, resume from valid safe phase                      COVERED
+#   T17   Green-wave offset measured (3..5 cycles)                             COVERED
+#   T18   Minimum density: green never below minimum                           COVERED
+#   T19   Maximum density: green never above maximum                           COVERED
+#   T20   Density sweep 0..7                                                   COVERED
+#   ---- additional Task 5 / corner-case tests ----
+#   X21   Emergency sweep over 24 phase offsets                                COVERED
+#   X22   Repeated emergency assert/deassert, no idle cycle                    COVERED
+#   X23   Reset during active operation                                        COVERED
+#   X24   Both junctions at max density, neither starved                       COVERED
+#   X25   Density change during green ignored                                  COVERED
+#   X26   Green wave under 8 density combinations                              COVERED
+#   X27   Constrained-random (density/ped/emergency/reset)                     COVERED
+#   X28   Emergency hit every phase of both junctions (bins)                   COVERED
+#   X29   Pedestrian starvation watchdog never fired                           COVERED
+# ===========================================================
+# SUMMARY: green-wave measurements=835 (offset 4..4), A ped=684, B ped=657
+# ============================================
+# AMTGC FULL VERIFICATION: ALL PASS
+# ============================================
+# ** Note: $finish    : tb/tb_amtgc_full.sv(680)
+#    Time: 242175 ns  Iteration: 1  Instance: /tb_amtgc_full
+# 1
+# Break in Module tb_amtgc_full at tb/tb_amtgc_full.sv line 680

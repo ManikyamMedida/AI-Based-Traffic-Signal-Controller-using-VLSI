@@ -1,0 +1,12 @@
+SHA256 hash of rtl/generic_timer.sv:
+5659036bade3e7957cb53701bfe3e48e270034600f403b5aa33add40febbd1ba
+CertUtil: -hashfile command completed successfully.
+SHA256 hash of rtl/junction_controller.sv:
+f21035dd60564e6238dff9218806016ace176991df6359464715c68148715890
+CertUtil: -hashfile command completed successfully.
+SHA256 hash of rtl/ped_arbiter.sv:
+c827bc0018bf1f006f77e0747818a350c79e04bc9702d7969a0e7bc6eddd70e7
+CertUtil: -hashfile command completed successfully.
+SHA256 hash of rtl/amtgc_top.sv:
+a65e30f9757f349f6c52779be45bc5a24bffe99ba08b4bac414dff3184d49573
+CertUtil: -hashfile command completed successfully.

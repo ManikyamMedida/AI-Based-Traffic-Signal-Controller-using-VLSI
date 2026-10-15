@@ -1,0 +1,113 @@
+vlog -sv rtl/generic_timer.sv rtl/junction_controller.sv tb/tb_monitors.sv tb/tb_junction_controller.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:59:51 on Oct 07,2026
+# vlog -reportprogress 300 -sv rtl/generic_timer.sv rtl/junction_controller.sv tb/tb_monitors.sv tb/tb_junction_controller.sv 
+# -- Compiling module generic_timer
+# -- Compiling module junction_controller
+# -- Compiling module run_len_checker
+# -- Compiling module junction_monitor
+# -- Compiling module tb_junction_controller
+# 
+# Top level modules:
+# 	tb_junction_controller
+# End time: 22:59:52 on Oct 07,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+vsim -voptargs=+acc work.tb_junction_controller
+# vsim -voptargs="+acc" work.tb_junction_controller 
+# Start time: 22:59:52 on Oct 07,2026
+# Loading sv_std.std
+# Loading work.tb_junction_controller
+# Loading work.junction_controller
+# Loading work.generic_timer
+# Loading work.junction_monitor
+# Loading work.run_len_checker
+do sim/wave_junction.do
+run -all
+# PASS: NORMAL FSM SEQUENCE + PARAMETERIZATION (density 0: A green=3, B green=4)
+# PASS: MIN-GREEN FLOOR ENFORCED (B base 2 -> 4)
+#   density=0 : A green=3        B green=4      
+#   density=1 : A green=4        B green=4      
+#   density=2 : A green=5        B green=6      
+#   density=3 : A green=6 (cap)  B green=8      
+#   density=4 : A green=6 (cap)  B green=9 (cap)
+#   density=5 : A green=6 (cap)  B green=9 (cap)
+#   density=6 : A green=6 (cap)  B green=9 (cap)
+#   density=7 : A green=6 (cap)  B green=9 (cap)
+# PASS: DENSITY SWEEP 0..7 (green rises with density, saturates at MAX)
+# PASS: DENSITY CHANGE DURING GREEN IGNORED UNTIL NEXT GREEN
+# PASS: RANDOM DENSITY (400 cycles)
+# PASS: PEDESTRIAN DURING YELLOW RETAINED AND SERVICED ONCE (PED=3 cycles)
+# PASS: EMERGENCY SWEEP (All-Red <= 1 clock after assertion, safe NS restart)
+# PASS: EMERGENCY DURING PEDESTRIAN PHASE
+# PASS: REPEATED EMERGENCY TOGGLE (no delay between operations)
+# PASS: RESET DURING OPERATION
+# ============================================
+# JUNCTION CONTROLLER TESTBENCH: ALL PASS
+# ============================================
+# ** Note: $finish    : tb/tb_junction_controller.sv(321)
+#    Time: 12225 ns  Iteration: 1  Instance: /tb_junction_controller
+# 1
+# Break in Module tb_junction_controller at tb/tb_junction_controller.sv line 321
+quit -sim
+vlog -sv rtl/generic_timer.sv rtl/junction_controller.sv rtl/ped_arbiter.sv rtl/amtgc_top.sv tb/tb_monitors.sv tb/tb_amtgc_top.sv
+# End time: 23:06:22 on Oct 07,2026, Elapsed time: 0:06:30
+# Errors: 0, Warnings: 1
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:06:23 on Oct 07,2026
+# vlog -reportprogress 300 -sv rtl/generic_timer.sv rtl/junction_controller.sv rtl/ped_arbiter.sv rtl/amtgc_top.sv tb/tb_monitors.sv tb/tb_amtgc_top.sv 
+# -- Compiling module generic_timer
+# -- Compiling module junction_controller
+# -- Compiling module ped_arbiter
+# -- Compiling module amtgc_top
+# -- Compiling module run_len_checker
+# -- Compiling module junction_monitor
+# -- Compiling module tb_amtgc_top
+# 
+# Top level modules:
+# 	tb_amtgc_top
+# End time: 23:06:23 on Oct 07,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim -voptargs=+acc work.tb_amtgc_top
+# vsim -voptargs="+acc" work.tb_amtgc_top 
+# Start time: 23:06:23 on Oct 07,2026
+# Loading sv_std.std
+# Loading work.tb_amtgc_top
+# Loading work.amtgc_top
+# Loading work.ped_arbiter
+# Loading work.junction_controller
+# Loading work.generic_timer
+# Loading work.junction_monitor
+# Loading work.run_len_checker
+do sim/wave_system.do
+run -all
+# PASS: T17 GREEN-WAVE 5 measurements, offset min=4 max=4 (target 4, window 3..5)
+# PASS: T07/T08 single pedestrian requests serviced
+# PASS: T09/T10 FAIRNESS 60 simultaneous rounds (120 requests): A first 30, B first 30
+# PASS: T11 pedestrian request during yellow serviced exactly once
+# PASS: T12/T15/T16 emergency during A NS green, held, released, re-synchronised
+# PASS: T13 emergency during A EW green
+# PASS: T14 emergency during pedestrian phase (A and B)
+# PASS: emergency sweep across all phases (24 offsets)
+# PASS: repeated emergency toggle with no delay
+# PASS: reset during operation, system restarts with green wave intact
+#   density=0 : A green=4        B green=3      
+#   density=1 : A green=6        B green=4      
+#   density=2 : A green=8        B green=5      
+#   density=3 : A green=10        B green=6      
+#   density=4 : A green=12 (cap)  B green=7      
+#   density=5 : A green=12 (cap)  B green=8 (cap)
+#   density=6 : A green=12 (cap)  B green=8 (cap)
+#   density=7 : A green=12 (cap)  B green=8 (cap)
+# PASS: T18/T19/T20 DENSITY SWEEP 0..7 (min respected, rises, saturates at MAX)
+# PASS: BOTH JUNCTIONS AT MAX DENSITY (A green=12, B green=8, NS and EW both served)
+# PASS: DENSITY CHANGE DURING GREEN IGNORED UNTIL NEXT GREEN
+# PASS: GREEN-WAVE under 8 density combinations (offset min=4 max=4)
+# PASS: CONSTRAINED-RANDOM DENSITY + PEDESTRIAN (4000 cycles)
+# SUMMARY: green-wave measurements=292 (offset 4..4), A ped=188, B ped=170
+# ============================================
+# AMTGC TOP INTEGRATION TESTBENCH: ALL PASS
+# ============================================
+# ** Note: $finish    : tb/tb_amtgc_top.sv(488)
+#    Time: 79795 ns  Iteration: 1  Instance: /tb_amtgc_top
+# 1
+# Break in Module tb_amtgc_top at tb/tb_amtgc_top.sv line 488

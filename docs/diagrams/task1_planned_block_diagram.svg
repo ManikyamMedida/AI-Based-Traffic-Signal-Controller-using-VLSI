@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="900" viewBox="0 0 1500 900">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+    <path d="M0,0 L10,3 L0,6 Z" fill="#333"/>
+  </marker>
+  <style>
+    .title{font:700 28px Arial;fill:#111}
+    .label{font:700 18px Arial;fill:#111}
+    .small{font:15px Arial;fill:#333}
+    .box{fill:#f7f9fc;stroke:#26384f;stroke-width:2;rx:14}
+    .top{fill:#eef4ff;stroke:#1d4e89;stroke-width:3;rx:18}
+    .module{fill:#fff;stroke:#333;stroke-width:2;rx:12}
+    .io{fill:#fafafa;stroke:#777;stroke-width:1.5;rx:10}
+    .line{stroke:#333;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    .dash{stroke:#555;stroke-width:2;stroke-dasharray:8 6;fill:none;marker-end:url(#arrow)}
+  </style>
+</defs>
+
+<rect x="0" y="0" width="1500" height="900" fill="white"/>
+<text x="750" y="45" text-anchor="middle" class="title">AI Based Traffic Signal Controller using VLSI</text>
+<text x="750" y="78" text-anchor="middle" class="small">Task 1 — AMTGC Top-Level System Architecture</text>
+
+<!-- top boundary -->
+<rect x="45" y="105" width="1410" height="745" class="top"/>
+<text x="750" y="140" text-anchor="middle" class="label">amtgc_top</text>
+
+<!-- inputs -->
+<rect x="70" y="180" width="220" height="170" class="io"/>
+<text x="180" y="210" text-anchor="middle" class="label">System Inputs</text>
+<text x="90" y="240" class="small">clk</text>
+<text x="90" y="265" class="small">rst</text>
+<text x="90" y="290" class="small">emergency_override</text>
+<text x="90" y="315" class="small">ped_req_A / ped_req_B</text>
+<text x="90" y="340" class="small">traffic_density_A / B</text>
+
+<!-- arbiter -->
+<rect x="360" y="180" width="270" height="150" class="module"/>
+<text x="495" y="215" text-anchor="middle" class="label">ped_arbiter</text>
+<text x="495" y="245" text-anchor="middle" class="small">Shared round-robin</text>
+<text x="495" y="270" text-anchor="middle" class="small">ped_req_A / ped_req_B</text>
+<text x="495" y="295" text-anchor="middle" class="small">→ ped_grant_A / B</text>
+
+<!-- green wave -->
+<rect x="750" y="180" width="300" height="150" class="module"/>
+<text x="900" y="215" text-anchor="middle" class="label">Green-Wave Control</text>
+<text x="900" y="245" text-anchor="middle" class="small">A NS-Green start</text>
+<text x="900" y="270" text-anchor="middle" class="small">→ 4-cycle delay</text>
+<text x="900" y="295" text-anchor="middle" class="small">→ B wave_release</text>
+
+<!-- controllers -->
+<rect x="330" y="470" width="360" height="205" class="module"/>
+<text x="510" y="505" text-anchor="middle" class="label">junction_controller_A</text>
+<text x="510" y="535" text-anchor="middle" class="small">Parameterized Moore FSM</text>
+<text x="510" y="565" text-anchor="middle" class="small">NS/EW traffic phases</text>
+<text x="510" y="590" text-anchor="middle" class="small">Pedestrian handling</text>
+<text x="510" y="615" text-anchor="middle" class="small">Adaptive green timing</text>
+<text x="510" y="640" text-anchor="middle" class="small">Emergency response</text>
+
+<rect x="810" y="470" width="360" height="205" class="module"/>
+<text x="990" y="505" text-anchor="middle" class="label">junction_controller_B</text>
+<text x="990" y="535" text-anchor="middle" class="small">Same reusable RTL</text>
+<text x="990" y="565" text-anchor="middle" class="small">NS/EW traffic phases</text>
+<text x="990" y="590" text-anchor="middle" class="small">Pedestrian handling</text>
+<text x="990" y="615" text-anchor="middle" class="small">Adaptive green timing</text>
+<text x="990" y="640" text-anchor="middle" class="small">Emergency response + wave release</text>
+
+<!-- timers -->
+<rect x="365" y="730" width="290" height="85" class="module"/>
+<text x="510" y="765" text-anchor="middle" class="label">generic_timer_A</text>
+<text x="510" y="790" text-anchor="middle" class="small">start + count_target → done</text>
+
+<rect x="845" y="730" width="290" height="85" class="module"/>
+<text x="990" y="765" text-anchor="middle" class="label">generic_timer_B</text>
+<text x="990" y="790" text-anchor="middle" class="small">start + count_target → done</text>
+
+<!-- connections -->
+<path d="M290 230 L360 230" class="line"/>
+<text x="325" y="215" text-anchor="middle" class="small">ped req</text>
+
+<path d="M290 305 L750 305" class="dash"/>
+<text x="520" y="292" text-anchor="middle" class="small">system control inputs</text>
+
+<path d="M495 330 L495 470" class="line"/>
+<text x="510" y="400" class="small">grant_A</text>
+
+<path d="M570 330 L990 470" class="line"/>
+<text x="770" y="405" class="small">grant_B</text>
+
+<path d="M690 545 L810 545" class="dash"/>
+<text x="750" y="530" text-anchor="middle" class="small">A_NS_GREEN_START → wave control</text>
+
+<path d="M900 330 L990 470" class="line"/>
+<text x="955" y="395" class="small">wave_release</text>
+
+<path d="M510 675 L510 730" class="line"/>
+<path d="M990 675 L990 730" class="line"/>
+
+<path d="M250 160 L250 115" class="line"/>
+<text x="250" y="105" text-anchor="middle" class="small">clk / rst / emergency broadcast</text>
+
+<!-- outputs -->
+<rect x="1210" y="470" width="210" height="205" class="io"/>
+<text x="1315" y="505" text-anchor="middle" class="label">System Outputs</text>
+<text x="1230" y="535" class="small">A NS/EW lights</text>
+<text x="1230" y="560" class="small">B NS/EW lights</text>
+<text x="1230" y="585" class="small">ped_grant_A/B</text>
+<text x="1230" y="610" class="small">ped_active_A/B</text>
+<text x="1230" y="635" class="small">status signals</text>
+<path d="M1170 570 L1210 570" class="line"/>
+
+<!-- shared clock line -->
+<path d="M180 350 L180 420 L510 420 L510 470" class="dash"/>
+<path d="M180 420 L990 420 L990 470" class="dash"/>
+<text x="190" y="405" class="small">single clock domain</text>
+
+<!-- legend -->
+<rect x="75" y="690" width="210" height="125" class="io"/>
+<text x="180" y="720" text-anchor="middle" class="label">Legend</text>
+<line x1="95" y1="745" x2="150" y2="745" class="line"/>
+<text x="160" y="750" class="small">functional connection</text>
+<line x1="95" y1="775" x2="150" y2="775" class="dash"/>
+<text x="160" y="780" class="small">system/control relation</text>
+</svg>
