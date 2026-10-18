@@ -1,4 +1,4 @@
-# AMTGC - Adaptive Multi-Junction Traffic Grid Controller
+# AI-Based Traffic Signal Controller using VLSI
 
 Two coordinated 4-way traffic junctions in SystemVerilog with a shared pedestrian
 arbiter, system-wide emergency override, green-wave coordination and
